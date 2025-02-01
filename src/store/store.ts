@@ -1,5 +1,5 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/query';
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
 import {
   createMigrate,
   persistReducer,
@@ -11,15 +11,12 @@ import {
   PURGE,
   REGISTER,
   MigrationManifest,
-} from 'redux-persist';
-import {
-  apiSlice,
-  authenticationSlice,
-} from './slices';
-import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-import { encryptTransform } from 'redux-persist-transform-encrypt';
-import { Logger } from '@/utils/libs';
-import localforage from 'localforage';
+} from "redux-persist";
+import { apiSlice, authenticationSlice } from "./slices";
+import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
+import { encryptTransform } from "redux-persist-transform-encrypt";
+import { Logger } from "@/utils/libs";
+import localforage from "localforage";
 
 const migrations: MigrationManifest = {
   0: (state) => state,
@@ -30,20 +27,20 @@ localforage.config({
 });
 
 const persistConfig = {
-  key: 'fast-wash-africa-admin-root',
+  key: "fast-wash-africa-admin-root",
   migrate: createMigrate(migrations),
   stateReconciler: autoMergeLevel2,
   storage: localforage,
   // storage: storage,
-  storeName: 'fast-wash-africa-admin-store',
+  storeName: "fast-wash-africa-admin-store",
   timeout: 0,
   //  blacklist: ["api-slice"],
   transforms: [
     encryptTransform({
       onError(error) {
-        Logger('Store Error', {error});
+        Logger("Store Error", { error });
       },
-      secretKey: '',
+      secretKey: "",
     }),
   ],
   version: 0,

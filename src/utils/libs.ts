@@ -1,5 +1,5 @@
 import { ADMIN_LOGIN } from "@/router/paths";
-import moment from "moment";
+import dayjs from "dayjs";
 
 /**
  *
@@ -8,7 +8,7 @@ import moment from "moment";
  */
 export const Logger = (...logs: unknown[]) =>
   process.env.NODE_ENV === "development"
-    ? console.log(...logs, `(Log time - ${moment().format("LLL")})`)
+    ? console.log(...logs, `(Log time - ${dayjs().format("LLL")})`)
     : undefined;
 
 export const getCookie = (name: string) => {
