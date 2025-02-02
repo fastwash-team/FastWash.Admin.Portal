@@ -4,6 +4,13 @@ import {
 } from "@/services/fastwash-client";
 import { useMutation } from "@tanstack/react-query";
 
+export type InitiateLoginTypeResponse = {
+  responseObject: string;
+  statusCode: string;
+  statusMessage: string;
+  successful: boolean;
+};
+
 export const useInitiateLogin = () => {
   const authenticationApi = new AuthenticationApi();
 
@@ -16,8 +23,6 @@ export const useInitiateLogin = () => {
     onSuccess: (res) => {
       return res;
     },
-    onError: (error: any) => {
-      console.log(error);
-    },
+    onError: () => {},
   });
 };

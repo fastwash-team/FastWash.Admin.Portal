@@ -11,6 +11,22 @@
   --color-black: #020d1c;
 }
 
+.demo-banner {
+  background: #16499fa1;
+  color: white;
+  position: absolute;
+  width: 220px;
+  text-align: center;
+  font-size: 18px;
+  transform: rotate(325deg);
+  left: -31px;
+  height: 29px;
+  top: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /*:root {*/
 /*  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;*/
 /*  line-height: 1.5;*/
