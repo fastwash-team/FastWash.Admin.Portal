@@ -1,6 +1,7 @@
 import FastWashLogo from "@/assets/FastWashLogo";
 import { NotificationBellIcon } from "@/assets/NotificationBellIcon";
 import { ProfileIcon } from "@/assets/ProfileIcon";
+import { logoutUser } from "@/utils/libs";
 import { Popover } from "flowbite-react";
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
@@ -24,6 +25,11 @@ export const DashboardHeader = () => {
               <div className="flex w-32 flex-col text-sm text-gray-500 dark:text-gray-400">
                 {menuItems?.map((item) => (
                   <p
+                    onClick={() => {
+                      if (item?.toLowerCase() === "logout") {
+                        logoutUser();
+                      }
+                    }}
                     key={uuid()}
                     className="odd:border-b cursor-pointer py-2 text-center odd:border-[#D9D9D9]"
                   >
