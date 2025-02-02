@@ -1,5 +1,6 @@
+import { API_URL } from "@/utils/constants";
 import axios from "axios";
 
 export const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_APP_API_DEV_URL,
+  baseURL: API_URL,
 });
