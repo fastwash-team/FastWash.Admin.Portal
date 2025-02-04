@@ -13,10 +13,12 @@ import {
   ADMIN_LOGIN,
   ADMIN_REQUESTS,
   ADMIN_VERIFY_AUTH,
+  ADMIN_SCHEDULE,
 } from "./router/paths.ts";
 import VerifyAuthPage from "./pages/VerifyAuthPage/index.tsx";
 import DashboardPage from "./pages/DashboardPage/index.tsx";
 import RequestsPage from "./pages/RequestsPage/index.tsx";
+import SchedulePage from "./pages/SchedulePage/index.tsx";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -35,6 +37,7 @@ createRoot(document.getElementById("root")!).render(
             <Route element={<AuthenticatedLayout />}>
               <Route path={ADMIN_DASHBOARD} element={<DashboardPage />} />
               <Route path={ADMIN_REQUESTS} element={<RequestsPage />} />
+              <Route path={ADMIN_SCHEDULE} element={<SchedulePage />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -9,3 +9,4 @@ export const ADMIN_FAQS = "/faqs";
 export const ADMIN_VERIFY_AUTH = "/verify-auth";
 export const ADMIN_TERMS_AND_CONDITIONS = "/terms-and-conditions";
 export const ADMIN_REQUESTS = "/requests";
+export const ADMIN_SCHEDULE = "/schedule";
