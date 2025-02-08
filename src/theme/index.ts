@@ -5,7 +5,8 @@ const customTheme: CustomFlowbiteTheme = {
     color: {
       primary:
         "bg-primary text-white font-bold hover:bg-primary/50 cursor-pointer",
-      outline: "bg-[#FAFAFA] border border-[#EDEFF2] cursor-pointer",
+      outline:
+        "text-[#666] bg-[#FAFAFA] border border-[#EDEFF2] cursor-pointer",
     },
     spinnerLeftPosition: {
       xs: "left-2",
@@ -31,7 +32,7 @@ const customTheme: CustomFlowbiteTheme = {
   },
   label: {
     root: {
-      base: "font-medium text-black text-sm block mb-2",
+      base: "font-semibold text-black text-sm block mb-2",
     },
   },
   modal: {
