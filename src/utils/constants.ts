@@ -14,3 +14,17 @@ export const REQUEST_METHODS = {
   HEAD: "HEAD",
   OPTIONS: "OPTIONS",
 };
+
+export enum ServiceType {
+  PreScheduledWash = 1,
+  ClassicWas,
+}
+
+export const supportedAreas = [
+  "Yaba/Shomolu",
+  "Lekki Phase I",
+  "Surulere",
+  "Maryland Ikeja",
+  "Gbagada",
+  "Ikoyi/VI",
+];

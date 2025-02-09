@@ -46,6 +46,22 @@ const customTheme: CustomFlowbiteTheme = {
       title: "text-xl font-semibold",
     },
   },
+  pagination: {
+    base: "mt-0 py-0 flex items-center",
+    pages: {
+      base: "mt-0 flex items-center gap-2",
+      previous: {
+        base: "rounded-md cursor-pointer border border-gray-300 bg-white px-3 py-2.5",
+      },
+      next: {
+        base: "rounded-md border cursor-pointer border-gray-300 bg-white px-3 py-2.5",
+      },
+      selector: {
+        base: "w-12 cursor-pointer border border-gray-200 py-2 rounded-md",
+        active: "bg-primary text-white px-4",
+      },
+    },
+  },
 };
 
 export default customTheme;

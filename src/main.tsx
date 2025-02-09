@@ -19,6 +19,7 @@ import VerifyAuthPage from "./pages/VerifyAuthPage/index.tsx";
 import DashboardPage from "./pages/DashboardPage/index.tsx";
 import RequestsPage from "./pages/RequestsPage/index.tsx";
 import SchedulePage from "./pages/SchedulePage/index.tsx";
+import "react-loading-skeleton/dist/skeleton.css";
 
 // Create a client
 const queryClient = new QueryClient();

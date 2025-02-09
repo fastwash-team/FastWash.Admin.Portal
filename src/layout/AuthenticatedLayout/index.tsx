@@ -178,6 +178,7 @@ const AuthenticatedLayout = () => {
           <div className="w-full flex items-center justify-evenly border-b border-[#D9D9D9]">
             {links?.map((link) => (
               <p
+                key={link.title}
                 onClick={() => navigate(link?.route)}
                 className={`p-2 text-sm font-medium border-b-4 border-transparent cursor-pointer ${link?.isActive ? "text-[#17499F] border-b-4 border-b-[#17499F]" : "text-[#666666]"}`}
               >

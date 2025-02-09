@@ -1,45 +1,54 @@
 import {
-  ApplicationUserDTO,
-  InternalWashOrderPlanDTO,
+  WashOrderPlansApi,
+  InternalWashOrderPlanDTOPaginatedList,
   ServiceType,
-  WashOrderDTO,
-  WashOrdersApi,
-  WashOrderStatusDTO,
-  WashStatus,
 } from "@/services/fastwash-client";
 import { useQuery } from "@tanstack/react-query";
 import { useSwaggerApiParams } from "../use-swagger-api-params";
-import { RawAxiosRequestConfig } from "axios";
 import { useSchedulesStore } from "@/modules/stores/schedulesStore";
 import { useSearchParams } from "react-router";
-import dayjs from "dayjs";
+import { components } from "@/types/api/fastwashservice";
 
 export type ApiResponse = {
-  responseObject: ApplicationUserDTO;
+  responseObject: InternalWashOrderPlanDTOPaginatedList;
   statusCode: string;
   statusMessage: string;
   successful: boolean;
 };
 
+export type ApiInput = {
+  location?: string;
+  fromLogisticsAmount?: number;
+  toLogisticsAmount?: number;
+  serviceType?: components["schemas"]["ServiceType"];
+  scheduleStartDate?: string;
+  scheduleEndDate?: string;
+  pageIndex?: number;
+  pageSize?: number;
+};
+
 export const QUERY_KEY_GET_SCHEDULES = "Get Schedules";
 
-const defaultFilters = {
+export const defaultFilters = {
   locations: "",
   fromLogisticsAmount: "0",
   toLogisticsAmount: 4000,
-  ServiceType: "",
+  serviceType: ServiceType.NUMBER_1,
   orderStartDate: undefined,
   orderEndDate: undefined,
   pageIndex: 1,
-  pageSize: 50,
+  pageSize: 10,
   washStatus: "",
   orderNotes: "",
 };
 
 export const useGetSchedules = () => {
   const swaggerApiParams = useSwaggerApiParams();
-  const schedulesApi = new WashOrdersApi(...swaggerApiParams);
+  const schedulesApi = new WashOrderPlansApi(...swaggerApiParams);
   const setSchedules = useSchedulesStore((state) => state.setSchedules);
+  const setPageSize = useSchedulesStore((state) => state.setPageSize);
+  const setPageCount = useSchedulesStore((state) => state.setPageCount);
+
   const [searchParams] = useSearchParams();
   const location = searchParams.get("location") ?? defaultFilters.locations;
   const fromLogisticsAmount = Number(
@@ -50,10 +59,10 @@ export const useGetSchedules = () => {
     searchParams.get("toLogisticsAmount") ?? defaultFilters.toLogisticsAmount
   );
   const serviceType =
-    searchParams.get("serviceType") ?? defaultFilters.ServiceType;
-  const orderStartDate =
+    searchParams.get("serviceType") ?? defaultFilters.serviceType;
+  const scheduleStartDate =
     searchParams.get("orderStartDate") ?? defaultFilters.orderStartDate;
-  const orderEndDate =
+  const scheduleEndDate =
     searchParams.get("orderEndDate") ?? defaultFilters.orderEndDate;
   const pageIndex = Number(
     searchParams.get("pageIndex") ?? defaultFilters.pageIndex
@@ -61,41 +70,35 @@ export const useGetSchedules = () => {
   const pageSize = Number(
     searchParams.get("pageSize") ?? defaultFilters.pageSize
   );
-  const washStatus =
-    searchParams.get("washStatus") ?? defaultFilters.washStatus;
-  const orderNotes =
-    searchParams.get("orderNotes") ?? defaultFilters.orderNotes;
 
-  //    location?: string,
-  //    orderNotes?: string,
-  //    fromOrderAmount?: number,
-  //    toOrderAmount?: number,
-  //    washStatus?: WashStatus,
-  //    serviceType?: ServiceType,
-  //    orderStartDate?: string,
-  //    orderEndDate?: string,
-  //    pageIndex?: number,
-  //    pageSize?: number,
-
-  return useQuery({
+  const query = useQuery({
     queryKey: [QUERY_KEY_GET_SCHEDULES],
     queryFn: async () => {
-      const res = await schedulesApi.apiWashOrdersFilterGet(
-        location,
-        orderNotes,
-        fromLogisticsAmount,
-        toLogisticsAmount,
-        washStatus,
-        serviceType,
-        orderStartDate,
-        orderEndDate,
-        pageIndex,
-        pageSize
-      );
-      setSchedules(res?.data?.responseObject?.data);
-      return res?.data as ApiResponse;
+      try {
+        const res = await schedulesApi.apiWashOrderPlansFilterGet(
+          location,
+          fromLogisticsAmount,
+          toLogisticsAmount,
+          serviceType as ServiceType,
+          scheduleStartDate,
+          scheduleEndDate,
+          pageIndex,
+          pageSize
+        );
+        const response = res.data as ApiResponse;
+        setSchedules(response.responseObject.data);
+        setPageCount(response.responseObject.pageCount);
+        setPageSize(response.responseObject.pageSize);
+        return response.responseObject.data;
+      } catch (error) {
+        return error;
+      }
     },
     refetchOnWindowFocus: false,
-    staleTime: 0,
   });
+
+  return {
+    getSchedules: query.refetch,
+    isFetching: query.isFetching,
+  };
 };
