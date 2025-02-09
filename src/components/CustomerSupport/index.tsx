@@ -6,7 +6,7 @@ import { BiSupport } from "react-icons/bi";
 import { MdEmail } from "react-icons/md";
 
 const CustomerSupport = () => {
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   const customerOptions = [
     {
