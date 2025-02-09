@@ -1,7 +1,11 @@
 import { PlusIcon } from "@/assets/PlusIcon";
 import { DashboardHeader } from "@/components/Header/DashboardHeader";
 import { useGetProfileDetails } from "@/modules/hooks/queries/useGetProfileDetails";
-import { ADMIN_DASHBOARD, ADMIN_REQUESTS } from "@/router/paths";
+import {
+  ADMIN_DASHBOARD,
+  ADMIN_REQUESTS,
+  ADMIN_SCHEDULE,
+} from "@/router/paths";
 import { logoutUser } from "@/utils/libs";
 import { AxiosError } from "axios";
 import { Button, Popover, TextInput } from "flowbite-react";
@@ -57,8 +61,8 @@ const AuthenticatedLayout = () => {
     },
     {
       title: "Schedule",
-      isActive: false,
-      route: "",
+      isActive: pathname === ADMIN_SCHEDULE ? true : false,
+      route: ADMIN_SCHEDULE,
     },
     {
       title: "Requests",
@@ -175,7 +179,7 @@ const AuthenticatedLayout = () => {
             {links?.map((link) => (
               <p
                 onClick={() => navigate(link?.route)}
-                className={`p-2 text-sm font-medium cursor-pointer ${link?.isActive ? "text-[#17499F] border-b-4 border-b-[#17499F]" : "text-[#666666]"}`}
+                className={`p-2 text-sm font-medium border-b-4 border-transparent cursor-pointer ${link?.isActive ? "text-[#17499F] border-b-4 border-b-[#17499F]" : "text-[#666666]"}`}
               >
                 {link?.title}
               </p>

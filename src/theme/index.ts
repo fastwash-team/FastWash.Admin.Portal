@@ -5,6 +5,8 @@ const customTheme: CustomFlowbiteTheme = {
     color: {
       primary:
         "bg-primary text-white font-bold hover:bg-primary/50 cursor-pointer",
+      outline:
+        "text-[#666] bg-[#FAFAFA] border border-[#EDEFF2] cursor-pointer",
     },
     spinnerLeftPosition: {
       xs: "left-2",
@@ -30,7 +32,18 @@ const customTheme: CustomFlowbiteTheme = {
   },
   label: {
     root: {
-      base: "font-medium text-black text-sm block mb-2",
+      base: "font-semibold text-black text-sm block mb-2",
+    },
+  },
+  modal: {
+    root: {
+      show: {
+        on: "bg-black/70 flex",
+      },
+    },
+    header: {
+      base: "flex items-start justify-between rounded-t border-b border-[#D9D9D9] px-5 py-4",
+      title: "text-xl font-semibold",
     },
   },
 };

@@ -48,6 +48,14 @@ export const logoutUser = () => {
   }
 };
 
+export const formatMoney = (value: number) =>
+  new Intl.NumberFormat("en-US", {}).format(value);
+
+export const getWashServiceType = (washType: string | number | undefined) => {
+  if (washType === "PreScheduledWash") return "Pre Scheduled";
+  if (washType === "Classic" || washType === "ClassicWash") return "Classic";
+};
+
 // export const errorHandler = (error: AxiosError) => {
 //   console.log("response", error.response);
 //   if (error?.response?.data?.statusMessage)
