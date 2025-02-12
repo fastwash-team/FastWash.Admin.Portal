@@ -1,12 +1,12 @@
 interface IOption {
   label: string;
-  value: string;
+  value: string | number;
 }
 
 interface ICustomTagSelection {
   options: IOption[];
-  value: string;
-  onSelectItem: (value: string) => void;
+  value: string | number;
+  onSelectItem: (value: string | number) => void;
 }
 
 import { Button } from "flowbite-react";
@@ -17,14 +17,14 @@ const CustomTagSelection: React.FC<ICustomTagSelection> = ({
   onSelectItem,
 }) => {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-4 items-center flex-wrap">
       {options.map((option) => (
         <Button
           onClick={() => onSelectItem(option.value)}
           key={option.value}
           color={option.value === value ? "primary" : "outline"}
           size="sm"
-          className="rounded-4xl"
+          className="rounded-4xl text-nowrap"
         >
           {option.label}
         </Button>

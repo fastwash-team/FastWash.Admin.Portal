@@ -1,24 +1,21 @@
-import { WashOrderDTO } from "@/services/fastwash-client";
+import { InternalWashOrderPlanDTO } from "@/services/fastwash-client";
 import { create } from "zustand";
 
 interface SchedulesStore {
-  schedules: WashOrderDTO[];
-  setSchedules: (schedules: WashOrderDTO[]) => void;
-
-  pageSize: number;
-  setPageSize: (value: number) => void;
+  schedules: InternalWashOrderPlanDTO[] | null | undefined;
+  setSchedules: (
+    schedules: InternalWashOrderPlanDTO[] | null | undefined
+  ) => void;
 
   pageCount: number;
-  setPageCount: (value: number) => void;
+  setPageCount: (value: number | undefined) => void;
 }
 
 export const useSchedulesStore = create<SchedulesStore>((set) => ({
   schedules: [],
-  setSchedules: (schedules: WashOrderDTO[]) => set({ schedules }),
-
-  pageSize: 0,
-  setPageSize: (value: number) => set({ pageSize: value }),
+  setSchedules: (schedules: InternalWashOrderPlanDTO[] | null | undefined) =>
+    set({ schedules }),
 
   pageCount: 0,
-  setPageCount: (value: number) => set({ pageCount: value }),
+  setPageCount: (value: number | undefined) => set({ pageCount: value }),
 }));
