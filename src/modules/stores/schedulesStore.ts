@@ -1,4 +1,7 @@
-import { InternalWashOrderPlanDTO } from "@/services/fastwash-client";
+import {
+  InternalWashOrderPlanDTO,
+  WashOrderPlanCreationDTO,
+} from "@/services/fastwash-client";
 import { create } from "zustand";
 
 interface SchedulesStore {
@@ -9,6 +12,9 @@ interface SchedulesStore {
 
   pageCount: number;
   setPageCount: (value: number | undefined) => void;
+
+  newSchedule: WashOrderPlanCreationDTO | null;
+  setNewSchedule: (value: WashOrderPlanCreationDTO | null) => void;
 }
 
 export const useSchedulesStore = create<SchedulesStore>((set) => ({
@@ -18,4 +24,8 @@ export const useSchedulesStore = create<SchedulesStore>((set) => ({
 
   pageCount: 0,
   setPageCount: (value: number | undefined) => set({ pageCount: value }),
+
+  newSchedule: null,
+  setNewSchedule: (value: WashOrderPlanCreationDTO | null) =>
+    set({ newSchedule: value }),
 }));
