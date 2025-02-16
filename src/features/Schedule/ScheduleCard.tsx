@@ -1,4 +1,3 @@
-import React from "react";
 import { InternalWashOrderPlanDTO } from "@/services/fastwash-client";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import {
