@@ -57,7 +57,7 @@ export const FilterModal = () => {
     },
     {
       label: "Classic",
-      value: ServiceType.ClassicWas,
+      value: ServiceType.ClassicWash,
     },
   ];
 
@@ -74,7 +74,7 @@ export const FilterModal = () => {
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <form onSubmit={formik.handleSubmit}>
           <Modal.Header>Filters</Modal.Header>
-          <Modal.Body className="mb-10 space-y-8 w-[712px]">
+          <Modal.Body className="mb-10 space-y-8 max-w-[712px]">
             <div className="flex gap-4 max-w-sm">
               <div>
                 <Label>Start Date</Label>

@@ -1,5 +1,6 @@
 import { PlusIcon } from "@/assets/PlusIcon";
 import { DashboardHeader } from "@/components/Header/DashboardHeader";
+import { AddClassicSchedule } from "@/features/Schedule/AddClassic";
 import { useGetProfileDetails } from "@/modules/hooks/queries/useGetProfileDetails";
 import {
   ADMIN_DASHBOARD,
@@ -37,7 +38,7 @@ const AuthenticatedLayout = () => {
   const menuItems = [
     {
       key: "add-classic-schedule",
-      title: "Add Classic Schedule",
+      title: <AddClassicSchedule />,
     },
     {
       key: "add-pre-schedule",

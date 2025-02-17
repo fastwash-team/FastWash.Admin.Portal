@@ -44,7 +44,7 @@ const ScheduleCard = ({ schedule }: { schedule: InternalWashOrderPlanDTO }) => {
   ];
 
   return (
-    <div className="hover:bg-gray-50 hover:cursor-pointer py-4 border-b border-[#D9D9D9]">
+    <div className="py-4 border-b border-[#D9D9D9]">
       <div className="flex justify-between items-center font-medium">
         <div id="scheduleid_time" className="space-x-2 text-[#020D1C]">
           <span>#{schedule.washOrderPlanReference}</span>

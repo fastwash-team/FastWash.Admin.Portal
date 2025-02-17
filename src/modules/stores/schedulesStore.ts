@@ -1,4 +1,7 @@
-import { InternalWashOrderPlanDTO } from "@/services/fastwash-client";
+import {
+  InternalWashOrderPlanDTO,
+  WashOrderPlanCreationDTO,
+} from "@/services/fastwash-client";
 import { create } from "zustand";
 
 interface SchedulesStore {
