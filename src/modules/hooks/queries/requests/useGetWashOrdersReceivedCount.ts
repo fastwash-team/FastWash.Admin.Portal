@@ -2,10 +2,8 @@ import {
   WashOrderReceivedCountDTO,
   WashOrdersApi,
 } from "@/services/fastwash-client";
-import { fastWashCookies } from "@/utils/libs";
 import { useQuery } from "@tanstack/react-query";
-
-const Cookies = fastWashCookies();
+import { useSwaggerApiParams } from "../../use-swagger-api-params";
 
 export type ApiResponse = {
   responseObject: WashOrderReceivedCountDTO;
@@ -18,14 +16,13 @@ export const QUERY_KEY_GET_WASH_ORDERS_RECEIVED_COUNT =
   "Get Washed Orders Received Count";
 
 export const useGetWashOrdersReceivedCount = () => {
-  const washOrdersApi = new WashOrdersApi();
+  const swaggerApiParams = useSwaggerApiParams();
+  const washOrdersApi = new WashOrdersApi(...swaggerApiParams);
 
   return useQuery({
     queryKey: [QUERY_KEY_GET_WASH_ORDERS_RECEIVED_COUNT],
     queryFn: async () => {
-      const res = await washOrdersApi.apiWashOrdersOrderReceivedCountGet({
-        headers: { Authorization: `Bearer ${Cookies.get("tk")}` },
-      });
+      const res = await washOrdersApi.apiWashOrdersOrderReceivedCountGet();
       return res?.data as ApiResponse;
     },
     refetchOnWindowFocus: false,

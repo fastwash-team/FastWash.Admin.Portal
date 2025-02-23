@@ -33,7 +33,7 @@ import { Filters } from "./Modals/Filters";
 export const RequestsView = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { requestsFilters, setRequestFilters } = useRequestsStore();
+  const { requestsFilters } = useRequestsStore();
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<WashOrderDTO>();
   const [openFiltersModal, setOpenFiltersModal] = useState<boolean>(false);
@@ -42,10 +42,6 @@ export const RequestsView = () => {
   const [openAddWashModal, setOpenAddWashModal] = useState<boolean>(false);
   const [openAddComplaintsModal, setOpenAddComplaintsModal] =
     useState<boolean>(false);
-  const [filters] =
-    useState<Omit<GetWashOrdersInput, "pageIndex" | "pageSize">>(
-      requestsFilters
-    );
 
   const page = searchParams.get("pageNumber") ?? "1";
   const pageCount = searchParams.get("pageSize") ?? "10";
@@ -272,7 +268,6 @@ export const RequestsView = () => {
                 <div className="flex items-center gap-2">
                   <p
                     onClick={() => {
-                      setRequestFilters(filters ?? {});
                       navigate(
                         `${ADMIN_REQUEST_DETAILS}?id=${item?.washOrderId}&pageNumber=${pageIndex}&pageSize=${pageSize}`
                       );
