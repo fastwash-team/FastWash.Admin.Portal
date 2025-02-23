@@ -9,6 +9,7 @@ const customTheme: CustomFlowbiteTheme = {
         "text-[#666] bg-[#FAFAFA] border border-[#EDEFF2] cursor-pointer",
       secondary:
         "text-primary bg-[#F4F4F4] border border-[#EDEFF2] cursor-pointer",
+      initiate: "bg-[#D6E7FF] text-[#17499F] cursor-pointer font-bold",
     },
     spinnerLeftPosition: {
       xs: "left-2",
