@@ -4,10 +4,8 @@ import {
   WashOrdersApi,
   WashStatus,
 } from "@/services/fastwash-client";
-import { fastWashCookies } from "@/utils/libs";
 import { useQuery } from "@tanstack/react-query";
-
-const Cookies = fastWashCookies();
+import { useSwaggerApiParams } from "../../use-swagger-api-params";
 
 export type GetWashOrdersApiResponse = {
   responseObject: WashOrderDTOPaginatedList;
@@ -42,7 +40,8 @@ export const useGetWashOrders = ({
   pageIndex,
   pageSize,
 }: GetWashOrdersInput) => {
-  const washOrdersApi = new WashOrdersApi();
+  const swaggerApiParams = useSwaggerApiParams();
+  const washOrdersApi = new WashOrdersApi(...swaggerApiParams);
 
   return useQuery({
     queryKey: [
@@ -70,10 +69,7 @@ export const useGetWashOrders = ({
           orderStartDate,
           orderEndDate,
           pageIndex,
-          pageSize,
-          {
-            headers: { Authorization: `Bearer ${Cookies.get("tk")}` },
-          }
+          pageSize
         );
         return res?.data as GetWashOrdersApiResponse;
       } catch (error) {

@@ -3,6 +3,8 @@ import { useMemo } from "react";
 import { fastWashCookies } from "@/utils/libs";
 import { Configuration } from "@/services/fastwash-client";
 import { API_URL } from "@/utils/constants";
+import { toast } from "sonner";
+import { logoutUser } from "@/utils/libs";
 
 const Cookies = fastWashCookies();
 
@@ -44,6 +46,29 @@ export const useSwaggerApiParams = (): [
     },
     (error) => {
       console.error("Request error:", error);
+      return Promise.reject(error);
+    }
+  );
+
+  apiClient.interceptors.response.use(
+    function (response) {
+      if (response.status === 401) {
+        logoutUser();
+        toast.error("Session time-out!");
+      }
+
+      if (response.status >= 500) {
+        toast.error("Something went wrong!");
+      }
+      // Do something with response data
+      return response;
+    },
+    function (error) {
+      if (error.response.status === 401) {
+        logoutUser();
+        toast.error("Session time-out!");
+      }
+      // Do something with response error
       return Promise.reject(error);
     }
   );
