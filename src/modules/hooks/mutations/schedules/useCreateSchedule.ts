@@ -21,7 +21,7 @@ export const useCreateSchedule = () => {
       return res;
     },
     onError: (error: Error) => {
-      console.log(error);
+      console.error(error);
     },
   });
 };
