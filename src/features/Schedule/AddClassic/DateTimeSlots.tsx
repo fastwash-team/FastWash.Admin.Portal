@@ -7,30 +7,31 @@ import {
   Select,
   TextInput,
 } from "flowbite-react";
-import { FormikErrors, FormikTouched } from "formik";
+// import { FormikErrors, FormikTouched } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { MdClear } from "react-icons/md";
 
 interface IDateTimeSlots {
   setStep: (value: string) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: any;
 }
 
-interface FormikState<Values> {
-  /** Form values */
-  values: Values;
-  /** map of field names to specific error for that field */
-  errors: FormikErrors<Values>;
-  /** map of field names to **whether** the field has been touched */
-  touched: FormikTouched<Values>;
-  /** whether the form is currently submitting */
-  isSubmitting: boolean;
-  /** whether the form is currently validating (prior to submission) */
-  isValidating: boolean;
-  /** Number of times user tried to submit the form */
-  submitCount: number;
-}
+// interface FormikState<Values> {
+//   /** Form values */
+//   values: Values;
+//   /** map of field names to specific error for that field */
+//   errors: FormikErrors<Values>;
+//   /** map of field names to **whether** the field has been touched */
+//   touched: FormikTouched<Values>;
+//   /** whether the form is currently submitting */
+//   isSubmitting: boolean;
+//   /** whether the form is currently validating (prior to submission) */
+//   isValidating: boolean;
+//   /** Number of times user tried to submit the form */
+//   submitCount: number;
+// }
 
 const Slot = ({
   formik,
@@ -39,6 +40,7 @@ const Slot = ({
 }: {
   index: number;
   removeSlot: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik: any;
 }) => {
   return (

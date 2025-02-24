@@ -1,5 +1,3 @@
-import React from "react";
-
 export const NotificationBellIcon = () => {
   return (
     <svg

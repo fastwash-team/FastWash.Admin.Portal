@@ -1,4 +1,3 @@
-import React from "react";
 import { IoMdArrowBack } from "react-icons/io";
 
 type GoBackProps = {

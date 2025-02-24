@@ -1,5 +1,3 @@
-import React from "react";
-
 type Counter = {
   currentCount: number;
   increment: () => void;

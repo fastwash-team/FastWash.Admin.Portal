@@ -1,4 +1,3 @@
-import React from "react";
 import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import LocationAndLogistics from "./LocationAndLogistics";
@@ -8,8 +7,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ServiceType } from "@/utils/constants";
 import { useCreateSchedule } from "@/modules/hooks/mutations/schedules/useCreateSchedule";
-import { WashOrderPlanCreationDTO } from "@/services/fastwash-client";
-import { toast } from "sonner";
+import {
+  WashOrderPlanCreationData,
+  WashOrderPlanCreationDTO,
+} from "@/services/fastwash-client";
+// import { WashOrderPlanCreationDTO } from "@/services/fastwash-client";
+// import { toast } from "sonner";
 
 const locationAndLogisticsSchema = Yup.object().shape({
   location: Yup.string().required("Location is Required"),
@@ -33,7 +36,7 @@ export const AddClassicSchedule = () => {
   const [step, setStep] = useState<
     "LOCATION_AND_LOGISTICS" | "DATE_TIME_SLOTS" | string
   >("LOCATION_AND_LOGISTICS");
-  const { setNewSchedule } = useSchedulesStore();
+  const { setSchedules } = useSchedulesStore();
 
   const formik = useFormik({
     initialValues: {
@@ -46,15 +49,16 @@ export const AddClassicSchedule = () => {
       step === "LOCATION_AND_LOGISTICS"
         ? locationAndLogisticsSchema
         : dateTimeSchema,
+
     onSubmit: async (values) => {
       if (step === "LOCATION_AND_LOGISTICS") {
         setStep("DATE_TIME_SLOTS");
       } else {
-        const payload: WashOrderPlanCreationDTO = {};
-        const plans: WashOrderPlanCreationDTO = [];
-        payload.serviceType = values.serviceType;
-        values.washOrderPlanCreationData.map(
-          (item: WashOrderPlanCreationDTO) => {
+        const payload = {};
+        const plans: WashOrderPlanCreationData[] = [];
+        (payload as WashOrderPlanCreationDTO).serviceType = values.serviceType;
+        (values.washOrderPlanCreationData as WashOrderPlanCreationData[]).map(
+          (item) => {
             plans.push({
               scheduleStartTime: item.scheduleStartTime,
               scheduleEndTime: item.scheduleEndTime,
@@ -66,7 +70,7 @@ export const AddClassicSchedule = () => {
           }
         );
         await createSchedule.mutateAsync({
-          ...payload,
+          ...(payload as WashOrderPlanCreationDTO),
           washOrderPlanCreationData: [...plans],
         });
         setOpenModal(false);
@@ -78,7 +82,7 @@ export const AddClassicSchedule = () => {
   useEffect(() => {
     formik.resetForm();
     setStep("LOCATION_AND_LOGISTICS");
-  }, [openModal, setNewSchedule]);
+  }, [openModal, setSchedules]);
 
   return (
     <>
