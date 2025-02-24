@@ -4,7 +4,7 @@ import {
 } from "@/modules/hooks/mutations/requests/useAddComplaints";
 import { AxiosError } from "axios";
 import { Button, Modal, Textarea } from "flowbite-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { AiOutlineLoading } from "react-icons/ai";
 import { useQueryClient } from "@tanstack/react-query";

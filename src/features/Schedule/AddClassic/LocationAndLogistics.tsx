@@ -9,7 +9,8 @@ import {
 import { supportedAreas } from "@/utils/constants";
 
 interface ILocationAndLogistics {
-  formik: unknown;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formik: any;
 }
 
 const LocationAndLogistics = ({ formik }: ILocationAndLogistics) => {

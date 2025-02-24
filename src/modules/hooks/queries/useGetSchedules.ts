@@ -46,7 +46,7 @@ export const useGetSchedules = () => {
   const swaggerApiParams = useSwaggerApiParams();
   const schedulesApi = new WashOrderPlansApi(...swaggerApiParams);
   const setSchedules = useSchedulesStore((state) => state.setSchedules);
-  const setPageSize = useSchedulesStore((state) => state.setPageSize);
+  // const setPageSize = useSchedulesStore((state) => state.setPageSize);
   const setPageCount = useSchedulesStore((state) => state.setPageCount);
 
   const [searchParams] = useSearchParams();
@@ -88,7 +88,7 @@ export const useGetSchedules = () => {
         const response = res.data as ApiResponse;
         setSchedules(response.responseObject.data);
         setPageCount(response.responseObject.pageCount);
-        setPageSize(response.responseObject.pageSize);
+        // setPageSize(response.responseObject.pageSize);
         return response.responseObject.data;
       } catch (error) {
         return error;
