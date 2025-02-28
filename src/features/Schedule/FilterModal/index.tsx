@@ -28,7 +28,7 @@ export const FilterModal = () => {
     initialValues: {
       orderStartDate: orderStartDate,
       orderEndDate: orderEndDate,
-      serviceType: serviceType,
+      serviceType: Number(serviceType),
       location: location,
       fromLogisticsAmount: fromLogisticsAmount,
       toLogisticsAmount: toLogisticsAmount,
@@ -38,7 +38,7 @@ export const FilterModal = () => {
         location: values.location,
         orderStartDate: values.orderStartDate,
         orderEndDate: values.orderEndDate,
-        serviceType: values.serviceType,
+        serviceType: values.serviceType?.toString(),
         fromLogisticsAmount: values.fromLogisticsAmount,
         toLogisticsAmount: values.toLogisticsAmount,
       });
