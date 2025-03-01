@@ -1,15 +1,15 @@
-import React from "react";
 import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import LocationAndLogistics from "./LocationAndLogistics";
 import DateTimeSlots from "./DateTimeSlots";
-import { useSchedulesStore } from "@/modules/stores/schedulesStore";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ServiceType } from "@/utils/constants";
 import { useCreateSchedule } from "@/modules/hooks/mutations/schedules/useCreateSchedule";
-import { WashOrderPlanCreationDTO } from "@/services/fastwash-client";
-import { toast } from "sonner";
+import {
+  WashOrderPlanCreationData,
+  WashOrderPlanCreationDTO,
+} from "@/services/fastwash-client";
 
 const locationAndLogisticsSchema = Yup.object().shape({
   location: Yup.string().required("Location is Required"),
@@ -33,12 +33,10 @@ export const AddClassicSchedule = () => {
   const [step, setStep] = useState<
     "LOCATION_AND_LOGISTICS" | "DATE_TIME_SLOTS" | string
   >("LOCATION_AND_LOGISTICS");
-  const { setNewSchedule } = useSchedulesStore();
 
   const formik = useFormik({
     initialValues: {
       location: "",
-      serviceType: ServiceType.ClassicWash,
       logisticsAmount: "",
       washOrderPlanCreationData: [{}],
     },
@@ -50,11 +48,14 @@ export const AddClassicSchedule = () => {
       if (step === "LOCATION_AND_LOGISTICS") {
         setStep("DATE_TIME_SLOTS");
       } else {
-        const payload: WashOrderPlanCreationDTO = {};
-        const plans: WashOrderPlanCreationDTO = [];
-        payload.serviceType = values.serviceType;
+        const payload: WashOrderPlanCreationDTO = {
+          serviceType: ServiceType.ClassicWash,
+          washOrderPlanCreationData: [],
+        };
+        const plans: WashOrderPlanCreationData[] | [] = [];
+
         values.washOrderPlanCreationData.map(
-          (item: WashOrderPlanCreationDTO) => {
+          (item: WashOrderPlanCreationData) => {
             plans.push({
               scheduleStartTime: item.scheduleStartTime,
               scheduleEndTime: item.scheduleEndTime,
@@ -78,7 +79,7 @@ export const AddClassicSchedule = () => {
   useEffect(() => {
     formik.resetForm();
     setStep("LOCATION_AND_LOGISTICS");
-  }, [openModal, setNewSchedule]);
+  }, [openModal]);
 
   return (
     <>

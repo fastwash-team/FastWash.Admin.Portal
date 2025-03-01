@@ -1,6 +1,7 @@
 import { PlusIcon } from "@/assets/PlusIcon";
 import { DashboardHeader } from "@/components/Header/DashboardHeader";
 import { AddClassicSchedule } from "@/features/Schedule/AddClassic";
+import { AddPreSchedule } from "@/features/Schedule/AddPreSchedule/Modals";
 import { useGetProfileDetails } from "@/modules/hooks/queries/useGetProfileDetails";
 import {
   ADMIN_DASHBOARD,
@@ -42,7 +43,7 @@ const AuthenticatedLayout = () => {
     },
     {
       key: "add-pre-schedule",
-      title: "Add Pre-schedule",
+      title: <AddPreSchedule />,
     },
     {
       key: "add-new-user",

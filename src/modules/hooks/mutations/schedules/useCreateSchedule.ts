@@ -20,8 +20,8 @@ export const useCreateSchedule = () => {
       toast.success("Classic schedules created successfully");
       return res;
     },
-    onError: (error: Error) => {
-      console.log(error);
+    onError: (error: unknown) => {
+      toast.error(error?.response?.data.statusMessage);
     },
   });
 };
