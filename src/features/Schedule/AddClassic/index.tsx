@@ -27,9 +27,14 @@ const dateTimeSchema = Yup.object().shape({
   ),
 });
 
-export const AddClassicSchedule = () => {
+export const AddClassicSchedule = ({
+  openModal,
+  setOpenModal,
+}: {
+  openModal: boolean;
+  setOpenModal: (value: boolean) => void;
+}) => {
   const createSchedule = useCreateSchedule();
-  const [openModal, setOpenModal] = useState(false);
   const [step, setStep] = useState<
     "LOCATION_AND_LOGISTICS" | "DATE_TIME_SLOTS" | string
   >("LOCATION_AND_LOGISTICS");
@@ -83,7 +88,6 @@ export const AddClassicSchedule = () => {
 
   return (
     <>
-      <div onClick={() => setOpenModal(true)}>Add classic schedule</div>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Create Classic Schedule</Modal.Header>
         {step === "LOCATION_AND_LOGISTICS" && (

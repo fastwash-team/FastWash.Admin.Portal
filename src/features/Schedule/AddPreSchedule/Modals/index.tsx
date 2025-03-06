@@ -1,5 +1,4 @@
 import { Button, Modal, ModalBody, ModalFooter } from "flowbite-react";
-import { useState } from "react";
 import { useSchedulesStore } from "@/modules/stores/schedulesStore";
 import { useCreateSchedule } from "@/modules/hooks/mutations/schedules/useCreateSchedule";
 import { WashOrderPlanCreationData } from "@/services/fastwash-client";
@@ -8,9 +7,14 @@ import PrescheduleForm from "./PrescheduleForm";
 import SchedulesList from "./SchedulesList";
 import { ServiceType } from "@/utils/constants";
 
-export const AddPreSchedule = () => {
+export const AddPreSchedule = ({
+  openModal,
+  setOpenModal,
+}: {
+  openModal: boolean;
+  setOpenModal: (value: boolean) => void;
+}) => {
   const createSchedule = useCreateSchedule();
-  const [openModal, setOpenModal] = useState(false);
   const { prescheduleData, setPrescheduleData } = useSchedulesStore();
 
   const handleUpdateWashOrders = (values: WashOrderPlanCreationData) => {
@@ -35,7 +39,6 @@ export const AddPreSchedule = () => {
 
   return (
     <>
-      <div onClick={() => setOpenModal(true)}>Add pre-schedule</div>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Create Pre-Schedule</Modal.Header>
         <ModalBody className="space-y-8">
