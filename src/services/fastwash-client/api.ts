@@ -20,10 +20,10 @@ import globalAxios from "axios";
 import {
   DUMMY_BASE_URL,
   assertParamExists,
-  setApiKeyToObject,
-  setBasicAuthToObject,
-  setBearerAuthToObject,
-  setOAuthToObject,
+  // setApiKeyToObject,
+  // setBasicAuthToObject,
+  // setBearerAuthToObject,
+  // setOAuthToObject,
   setSearchParams,
   serializeDataIfNeeded,
   toPathString,
@@ -33,9 +33,9 @@ import type { RequestArgs } from "./base";
 // @ts-ignore
 import {
   BASE_PATH,
-  COLLECTION_FORMATS,
+  // COLLECTION_FORMATS,
   BaseAPI,
-  RequiredError,
+  // RequiredError,
   operationServerMap,
 } from "./base";
 

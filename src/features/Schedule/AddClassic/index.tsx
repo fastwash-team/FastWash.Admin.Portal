@@ -49,6 +49,7 @@ export const AddClassicSchedule = ({
       step === "LOCATION_AND_LOGISTICS"
         ? locationAndLogisticsSchema
         : dateTimeSchema,
+
     onSubmit: async (values) => {
       if (step === "LOCATION_AND_LOGISTICS") {
         setStep("DATE_TIME_SLOTS");
@@ -72,7 +73,7 @@ export const AddClassicSchedule = ({
           }
         );
         await createSchedule.mutateAsync({
-          ...payload,
+          ...(payload as WashOrderPlanCreationDTO),
           washOrderPlanCreationData: [...plans],
         });
         setOpenModal(false);

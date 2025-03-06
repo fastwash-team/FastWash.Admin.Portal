@@ -1,6 +1,5 @@
 import { LaundryIcon } from "@/assets/LaundryIcon";
 import { Button } from "flowbite-react";
-import React from "react";
 
 type ComingSoon = {
   title: string;
