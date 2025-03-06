@@ -74,7 +74,7 @@ export const FilterModal = () => {
       <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
         <form onSubmit={formik.handleSubmit}>
           <Modal.Header>Filters</Modal.Header>
-          <Modal.Body className="mb-10 space-y-8 max-w-[712px]">
+          <Modal.Body className="max-h-[500px] overflow-auto space-y-8 max-w-[712px]">
             <div className="flex gap-4 max-w-sm">
               <div>
                 <Label>Start Date</Label>
@@ -167,7 +167,7 @@ export const FilterModal = () => {
               </div>
             </div>
           </Modal.Body>
-          <ModalFooter className="border-0">
+          <ModalFooter className="border-t">
             <div className="flex items-center w-full justify-between">
               <button
                 type="button"
