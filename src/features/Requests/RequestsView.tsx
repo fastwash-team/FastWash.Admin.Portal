@@ -12,23 +12,53 @@ import {
 import { WashOrderDTO } from "@/services/fastwash-client";
 import dayjs from "dayjs";
 import { Popover } from "flowbite-react";
-import React, { useMemo, useState } from "react";
+import React, { lazy, useMemo, useState } from "react";
 import { v4 as uuid } from "uuid";
 import { Pagination, Select } from "flowbite-react";
 import Skeleton from "react-loading-skeleton";
-import CustomerSupport from "@/components/CustomerSupport";
-import { EmptyView } from "@/components/EmptyView";
+// import CustomerSupport from "@/components/CustomerSupport";
+// import { EmptyView } from "@/components/EmptyView";
 import { AxiosError } from "axios";
 import { toast } from "sonner";
 import { ADMIN_REQUEST_DETAILS } from "@/router/paths";
 import { useNavigate, useSearchParams } from "react-router";
 import { useRequestsStore } from "@/modules/stores/requestsStore";
-import { UpdateStatus } from "./Modals/UpdateStatus";
-import { AddAdditionalWash } from "./Modals/AddAdditionalWash";
-import { AddComplaints } from "./Modals/AddComplaints";
+// import { UpdateStatus } from "./Modals/UpdateStatus";
+// import { AddAdditionalWash } from "./Modals/AddAdditionalWash";
+// import { AddComplaints } from "./Modals/AddComplaints";
 import { useQueryClient } from "@tanstack/react-query";
 import { QUERY_KEY_GET_ADDITIONAL_WASHES } from "@/modules/hooks/queries/requests/useGetAdditionalWashes";
-import { Filters } from "./Modals/Filters";
+// import { Filters } from "./Modals/Filters";
+
+const UpdateStatus = lazy(() =>
+  import("./Modals/UpdateStatus").then(({ UpdateStatus }) => ({
+    default: UpdateStatus,
+  }))
+);
+const AddAdditionalWash = lazy(() =>
+  import("./Modals/AddAdditionalWash").then(({ AddAdditionalWash }) => ({
+    default: AddAdditionalWash,
+  }))
+);
+const AddComplaints = lazy(() =>
+  import("./Modals/AddComplaints").then(({ AddComplaints }) => ({
+    default: AddComplaints,
+  }))
+);
+const Filters = lazy(() =>
+  import("./Modals/Filters").then(({ Filters }) => ({
+    default: Filters,
+  }))
+);
+const EmptyView = lazy(() =>
+  import("@/components/EmptyView").then(({ EmptyView }) => ({
+    default: EmptyView,
+  }))
+);
+
+const CustomerSupport = lazy(
+  async () => await import("@/components/CustomerSupport")
+);
 
 export const RequestsView = () => {
   const navigate = useNavigate();
@@ -56,26 +86,28 @@ export const RequestsView = () => {
     pageSize: pageSize,
   });
 
-  const menuList = [
-    {
-      key: "update-status",
-      title: "Update Status",
-    },
-    {
-      key: "add-wash",
-      title: "Add Wash",
-    },
-    {
-      key: "reschedule-wash",
-      title: "Reschedule Wash",
-    },
-    {
-      key: "add-complaints",
-      title: "Add Complaints",
-    },
-  ];
-
   const menuItems = useMemo(() => {
+    const menuList = [
+      {
+        key: "update-status",
+        title: "Update Status",
+      },
+      {
+        key: "add-wash",
+        title: "Add Wash",
+      },
+      {
+        key: "reschedule-wash",
+        title: "Reschedule Wash",
+      },
+      {
+        key: "add-complaints",
+        title:
+          selectedItem?.complaintNote !== ""
+            ? "View Complaints"
+            : "Add Complaints",
+      },
+    ];
     return menuList?.map((item) => ({
       key: item.key,
       title: item.title,
@@ -88,7 +120,7 @@ export const RequestsView = () => {
         return true;
       },
     }));
-  }, [menuList, selectedItem?.washStatus]);
+  }, [selectedItem?.washStatus]);
 
   const handleWashStatus = (status: string) => {
     switch (status?.toLowerCase()) {
@@ -155,6 +187,7 @@ export const RequestsView = () => {
       case "Reschedule Wash":
         return toast.info("Feature is coming soon!");
       case "Add Complaints":
+      case "View Complaints":
         return setOpenAddComplaintsModal(true);
 
       default:
@@ -262,9 +295,9 @@ export const RequestsView = () => {
           )?.responseObject?.data?.map((item: WashOrderDTO) => (
             <div
               key={uuid()}
-              className="flex w-full h-full flex-col border-b border-[#D9D9D9] py-8 space-y-4"
+              className="flex w-full max-w-[600px] h-full flex-col border-b border-[#D9D9D9] py-8 space-y-4"
             >
-              <div className="flex w-full justify-between">
+              <div className="flex w-full justify-between md:gap-0 gap-3">
                 <div className="flex items-center gap-2">
                   <p
                     onClick={() => {
@@ -330,43 +363,43 @@ export const RequestsView = () => {
                   )}
                 </div>
               </div>
-              <div className="flex w-full items-center gap-1">
+              <div className="flex md:flex-row flex-col w-full items-center gap-1">
                 {/* Wash category */}
-                <div className="flex text-[#666666] font-medium text-[13px] leading-[15.73px] items-center justify-center bg-[#F4F4F4] rounded-sm p-2">
+                <div className="flex text-[#666666] md:w-auto w-full font-medium text-[13px] leading-[15.73px] items-center justify-center bg-[#F4F4F4] rounded-sm p-2">
                   {handleWashCategory(`${item?.washOrderData?.serviceType}`)}
                 </div>
 
                 {/* Number of washes */}
                 {item?.washOrderData?.washItemData?.[0]?.itemName?.toLowerCase() ===
                   "washes" && (
-                  <div className="flex text-[#666666] font-medium text-[13px] leading-[15.73px] items-center justify-center bg-[#F4F4F4] rounded-sm p-2">
+                  <div className="flex text-[#666666] md:w-auto w-full font-medium text-[13px] leading-[15.73px] items-center justify-center bg-[#F4F4F4] rounded-sm p-2">
                     {`${item?.washOrderData?.washItemData?.[0]?.numberOfItem} Wash(es)`}
                   </div>
                 )}
 
                 {/* Number of Extras */}
                 {(item?.washOrderData?.washItemData ?? [])?.length > 0 && (
-                  <div className="flex text-[#666666] font-medium text-[13px] leading-[15.73px] items-center justify-center bg-[#F4F4F4] rounded-sm p-2">
+                  <div className="flex text-[#666666] md:w-auto w-full font-medium text-[13px] leading-[15.73px] items-center justify-center bg-[#F4F4F4] rounded-sm p-2">
                     {`${item?.washOrderData?.washItemData?.length} Extra(s)`}
                   </div>
                 )}
 
                 {/* Any Complaint notes */}
                 {item?.complaintNote !== "" && (
-                  <div className="flex text-[#666666] font-medium text-[13px] leading-[15.73px]items-center justify-center bg-[#F4F4F4] rounded-sm p-2">
+                  <div className="flex text-[#666666] md:w-auto w-full font-medium text-[13px] leading-[15.73px]items-center justify-center bg-[#F4F4F4] rounded-sm p-2">
                     {`Notes: ${item?.complaintNote === "" ? "No" : "Yes"}`}
                   </div>
                 )}
 
                 {/* Location */}
                 {item?.location !== "" && (
-                  <div className="flex text-[#666666] font-medium text-[13px] leading-[15.73px] items-center justify-center bg-[#F4F4F4] rounded-sm p-2">
+                  <div className="flex text-[#666666] md:w-auto w-full font-medium text-[13px] leading-[15.73px] items-center justify-center bg-[#F4F4F4] rounded-sm p-2">
                     {item?.location}
                   </div>
                 )}
               </div>
               <div className="flex flex-col space-y-2">
-                <div className="flex w-full items-center gap-3">
+                <div className="flex md:flex-row flex-col w-full md:items-center gap-3">
                   <div className="flex items-center gap-1">
                     <AvatarIcon />
                     <p className="text-[13px] leading-[15.73px] font-medium text-[#666666]">
@@ -400,7 +433,7 @@ export const RequestsView = () => {
         </div>
       )}
 
-      <div className="items-center flex justify-between w-full gap-2 mt-4 mb-4">
+      <div className="items-center flex md:flex-row flex-col justify-between w-full gap-2 md:px-0 px-3 mt-4 mb-4">
         <div className="flex items-center gap-1">
           <span>Items per page</span>
           <Select
@@ -459,6 +492,7 @@ export const RequestsView = () => {
 
       {/* Add Complaints */}
       <AddComplaints
+        existingComplaints={selectedItem?.complaintNote ?? ""}
         openModal={openAddComplaintsModal}
         setOpenModal={() => setOpenAddComplaintsModal(!openAddComplaintsModal)}
         washOrderId={Number(selectedItem?.washOrderId)}

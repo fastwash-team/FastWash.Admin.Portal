@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Modal, Button, TextInput, Datepicker, Label } from "flowbite-react";
+import {
+  Modal,
+  Button,
+  TextInput,
+  Datepicker,
+  Label,
+  ModalFooter,
+} from "flowbite-react";
 import { GetWashOrdersInput } from "@/modules/hooks/queries/requests/useGetWashOrders";
 import dayjs from "dayjs";
 import CustomTagSelection from "@/components/CustomTagSelection";
@@ -84,9 +91,9 @@ export const Filters = ({ openModal, setOpenModal }: FilterProps) => {
       }}
     >
       <Modal.Header>Filters</Modal.Header>
-      <Modal.Body className="w-full max-w-[712px]">
-        <div className="w-full max-w-[600px] flex flex-col items-center justify-center space-y-4">
-          <div className="flex w-full items-center gap-3">
+      <Modal.Body className="w-full md:max-w-[712px]">
+        <div className="w-full md:max-w-[600px] flex flex-col items-center justify-center space-y-4">
+          <div className="flex md:flex-row flex-col w-full items-center gap-3">
             <div className="flex w-full flex-col gap-1">
               <Label>Start Date</Label>
               <Datepicker
@@ -223,30 +230,32 @@ export const Filters = ({ openModal, setOpenModal }: FilterProps) => {
               </div>
             </div>
           </div>
-          <div className="flex items-center w-full justify-between">
-            <p
-              onClick={() => {
-                setRequestFilters({});
-                setOpenModal();
-              }}
-              className="cursor-pointer text-primary font-semibold"
-            >
-              Reset filter
-            </p>
-            <Button
-              onClick={() => {
-                setRequestFilters(filters);
-                setOpenModal();
-              }}
-              size="lg"
-              type="submit"
-              color="primary"
-            >
-              Apply
-            </Button>
-          </div>
         </div>
       </Modal.Body>
+      <ModalFooter className="border-t">
+        <div className="flex items-center w-full justify-between">
+          <p
+            onClick={() => {
+              setRequestFilters({});
+              setOpenModal();
+            }}
+            className="cursor-pointer text-primary font-semibold"
+          >
+            Reset filter
+          </p>
+          <Button
+            onClick={() => {
+              setRequestFilters(filters);
+              setOpenModal();
+            }}
+            size="lg"
+            type="submit"
+            color="primary"
+          >
+            Apply
+          </Button>
+        </div>
+      </ModalFooter>
     </Modal>
   );
 };

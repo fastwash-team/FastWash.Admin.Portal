@@ -5,13 +5,16 @@ import { AddPreSchedule } from "@/features/Schedule/AddPreSchedule/Modals";
 import { useGetProfileDetails } from "@/modules/hooks/queries/useGetProfileDetails";
 import {
   ADMIN_DASHBOARD,
+  ADMIN_LOGIN,
+  ADMIN_PAYMENTS,
   ADMIN_REQUESTS,
   ADMIN_SCHEDULE,
+  ADMIN_VERIFY_AUTH,
 } from "@/router/paths";
-import { logoutUser } from "@/utils/libs";
+import { fastWashCookies, logoutUser } from "@/utils/libs";
 import { AxiosError } from "axios";
 import { Button, Popover, TextInput } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { toast } from "sonner";
 import { v4 as uuid } from "uuid";
@@ -39,6 +42,8 @@ const AuthenticatedLayout = () => {
     host
   );
 
+  const ONBOARDING_ROUTES = [ADMIN_LOGIN, ADMIN_VERIFY_AUTH];
+
   const menuItems = [
     {
       key: "add-classic-schedule",
@@ -53,12 +58,12 @@ const AuthenticatedLayout = () => {
     {
       key: "add-new-user",
       title: "Add New User",
-      onclick: () => null,
+      onClick: () => toast.info("Feature is coming soon!"),
     },
     {
       key: "add-coupons",
       title: "Add Coupons",
-      onclick: () => null,
+      onClick: () => toast.info("Feature is coming soon!"),
     },
   ];
 
@@ -80,8 +85,8 @@ const AuthenticatedLayout = () => {
     },
     {
       title: "Payments",
-      isActive: false,
-      route: "",
+      isActive: pathname === ADMIN_PAYMENTS ? true : false,
+      route: ADMIN_PAYMENTS,
     },
     {
       title: "Coupons",
@@ -115,6 +120,14 @@ const AuthenticatedLayout = () => {
       );
     }
   }
+  console.log("test", ONBOARDING_ROUTES?.includes(pathname));
+
+  useEffect(() => {
+    const cookies = fastWashCookies();
+    if (!cookies.get("tk")) {
+      logoutUser();
+    }
+  }, []);
 
   return (
     <>
@@ -129,7 +142,7 @@ const AuthenticatedLayout = () => {
       <div className="w-full relative space-y-10">
         {isStaging && <div className="demo-banner">STAGING</div>}
         <DashboardHeader />
-        <div className="flex flex-col w-full max-w-[600px] mx-auto">
+        <div className="flex flex-col w-full md:max-w-[600px] mx-auto md:px-0 px-3">
           <div className="flex flex-col w-full space-y-8">
             {/* Search Input */}
             <div className="flex w-full items-center gap-2 p-4 rounded-lg bg-[#FAFAFA]">
@@ -193,7 +206,7 @@ const AuthenticatedLayout = () => {
             </div>
 
             {/* Links */}
-            <div className="w-full flex items-center justify-evenly border-b border-[#D9D9D9]">
+            <div className="w-full flex items-center justify-evenly border-b border-[#D9D9D9] overflow-x-auto">
               {links?.map((link) => (
                 <p
                   key={link.title}

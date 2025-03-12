@@ -265,8 +265,8 @@ export const AddAdditionalWash = ({
   return (
     <Modal dismissible show={openModal} onClose={setOpenModal}>
       <Modal.Header>Add Wash</Modal.Header>
-      <Modal.Body className="w-full max-w-[712px]">
-        <div className="w-full max-w-[600px] flex flex-col space-y-8 mx-auto ">
+      <Modal.Body className="w-full md:max-w-[712px]">
+        <div className="w-full md:max-w-[600px] flex flex-col space-y-8 mx-auto ">
           {/* Main price toggle */}
           <div className="flex w-full flex-col space-y-4">
             <p className="font-semibold text-xl text-[#020D1C]">

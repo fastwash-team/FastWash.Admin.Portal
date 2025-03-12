@@ -9,7 +9,7 @@ export const DashboardHeader = () => {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const menuItems = ["Settings", "Logout"];
   return (
-    <div className="w-full h-full max-h-[104px] flex items-center bg-milk px-24 py-8">
+    <div className="w-full h-full max-h-[104px] flex items-center bg-milk md:px-24 px-3 py-8">
       <div className="flex w-full max-w-[600px] items-center justify-between mx-auto">
         <FastWashLogo />
         <div className="flex items-center gap-3">

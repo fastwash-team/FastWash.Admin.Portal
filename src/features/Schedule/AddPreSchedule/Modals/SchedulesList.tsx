@@ -40,7 +40,7 @@ const ScheduleItem = ({
             values={item}
             isEdit={true}
             onCancel={() => setShowForm(false)}
-            onSubmit={(values) => {
+            handleSubmit={(values) => {
               const previousData = [...prescheduleData];
               previousData[index] = values;
               setPrescheduleData(previousData);

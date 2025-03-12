@@ -11,3 +11,5 @@ export const ADMIN_TERMS_AND_CONDITIONS = "/terms-and-conditions";
 export const ADMIN_REQUESTS = "/requests";
 export const ADMIN_REQUEST_DETAILS = "/requests/details";
 export const ADMIN_SCHEDULE = "/schedule";
+export const ADMIN_PAYMENTS = "/payments";
+export const ADMIN_PAYMENTS_DETAILS = "/payments/details";

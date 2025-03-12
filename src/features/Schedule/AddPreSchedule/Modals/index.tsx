@@ -43,7 +43,7 @@ export const AddPreSchedule = ({
         <Modal.Header>Create Pre-Schedule</Modal.Header>
         <ModalBody className="space-y-8">
           <PrescheduleForm
-            onSubmit={(values) => {
+            handleSubmit={(values) => {
               handleUpdateWashOrders(values);
             }}
           />
