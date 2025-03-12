@@ -15,14 +15,18 @@ type AddComplaints = {
   openModal: boolean;
   setOpenModal: () => void;
   washOrderId: number;
+  existingComplaints: string;
 };
 
 export const AddComplaints = ({
   openModal,
   setOpenModal,
   washOrderId,
+  existingComplaints,
 }: AddComplaints) => {
-  const [complaints, setComplaints] = useState<string>("");
+  const [complaints, setComplaints] = useState<string>(
+    existingComplaints ?? ""
+  );
   const queryClient = useQueryClient();
 
   const addComplaints = useAddComplaints();
@@ -61,8 +65,8 @@ export const AddComplaints = ({
   return (
     <Modal dismissible show={openModal} onClose={setOpenModal}>
       <Modal.Header>Add Complaints</Modal.Header>
-      <Modal.Body className="w-full max-w-[712px]">
-        <div className="max-w-[600px] w-full flex flex-col space-y-8">
+      <Modal.Body className="w-full md:max-w-[712px]">
+        <div className="md:max-w-[600px] w-full flex flex-col space-y-8">
           <Textarea
             value={complaints}
             onChange={(e) => setComplaints(e?.target?.value)}
@@ -82,8 +86,10 @@ export const AddComplaints = ({
             >
               {addComplaints?.isPending ? (
                 <AiOutlineLoading className="h-6 w-6 animate-spin" />
-              ) : (
+              ) : existingComplaints === "" ? (
                 "Submit"
+              ) : (
+                "Update"
               )}
             </Button>
           </div>

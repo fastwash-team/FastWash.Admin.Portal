@@ -19,12 +19,12 @@ const PrescheduleForm = ({
   values,
   isEdit,
   onCancel,
-  onSubmit,
+  handleSubmit,
 }: {
   values?: WashOrderPlanCreationData;
   isEdit?: boolean;
   onCancel?: () => void;
-  onSubmit: (values: WashOrderPlanCreationData) => void;
+  handleSubmit: (values: WashOrderPlanCreationData) => void;
 }) => {
   const formik = useFormik({
     initialValues: {
@@ -37,7 +37,7 @@ const PrescheduleForm = ({
     },
     validationSchema: formSchema,
     onSubmit: async (values: WashOrderPlanCreationData) => {
-      onSubmit(values);
+      handleSubmit(values);
     },
   });
 

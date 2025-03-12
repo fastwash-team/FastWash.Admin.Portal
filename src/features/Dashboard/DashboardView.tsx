@@ -5,7 +5,13 @@ import dayjs from "@/utils/dayjsLib";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { GoChevronRight } from "react-icons/go";
-import CustomerSupport from "@/components/CustomerSupport";
+// import CustomerSupport from "@/components/CustomerSupport";
+import { v4 as uuid } from "uuid";
+import { lazy } from "react";
+
+const CustomerSupport = lazy(
+  async () => await import("@/components/CustomerSupport")
+);
 
 export const DashboardView = () => {
   const navigate = useNavigate();
@@ -50,8 +56,9 @@ export const DashboardView = () => {
       <div className="grid md:grid-cols-2 grid-cols-1 gap-5 my-8">
         {cards?.map((item) => (
           <div
+            key={uuid()}
             onClick={item?.cta}
-            className={`p-4 text-[#020D1C] rounded-lg cursor-pointer flex w-full max-w-[288px] h-full max-h-[110px] gap-5 flex-col ${item?.bgColor}`}
+            className={`p-4 text-[#020D1C] rounded-lg cursor-pointer flex w-full md:max-w-[288px] h-full max-h-[110px] gap-5 flex-col ${item?.bgColor}`}
           >
             <div className="flex w-full items-center justify-between">
               <p className=" font-medium text-sm">{item?.title}</p>

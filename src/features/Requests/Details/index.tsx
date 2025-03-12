@@ -345,7 +345,7 @@ export const RequestDetailsView = () => {
             Update Status
           </Button>
         </div>
-        <div className="items-center justify-between flex w-full gap-3">
+        <div className="items-center justify-between flex md:flex-row flex-col w-full gap-3">
           <Button
             onClick={() => setOpenAddComplaintsModal(true)}
             color="secondary"
@@ -387,6 +387,7 @@ export const RequestDetailsView = () => {
       {/* Add Complaints */}
       <AddComplaints
         openModal={openAddComplaintsModal}
+        existingComplaints={requestDetails?.complaintNote ?? ""}
         setOpenModal={() => setOpenAddComplaintsModal(!openAddComplaintsModal)}
         washOrderId={Number(washOrderId)}
       />

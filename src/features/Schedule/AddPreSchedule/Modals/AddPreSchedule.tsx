@@ -1,7 +1,7 @@
 import PrescheduleForm from "./PrescheduleForm";
 
 const AddPreschedule = () => {
-  return <PrescheduleForm />;
+  return <PrescheduleForm handleSubmit={() => {}} />;
 };
 
 export default AddPreschedule;

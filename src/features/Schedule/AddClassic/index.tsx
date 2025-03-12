@@ -27,6 +27,12 @@ const dateTimeSchema = Yup.object().shape({
   ),
 });
 
+type initialValues = {
+  location: string;
+  logisticsAmount: string;
+  washOrderPlanCreationData: WashOrderPlanCreationData[];
+};
+
 export const AddClassicSchedule = ({
   openModal,
   setOpenModal,
@@ -43,8 +49,8 @@ export const AddClassicSchedule = ({
     initialValues: {
       location: "",
       logisticsAmount: "",
-      washOrderPlanCreationData: [{}],
-    },
+      washOrderPlanCreationData: [],
+    } as initialValues,
     validationSchema:
       step === "LOCATION_AND_LOGISTICS"
         ? locationAndLogisticsSchema
@@ -58,12 +64,12 @@ export const AddClassicSchedule = ({
           serviceType: ServiceType.ClassicWash,
           washOrderPlanCreationData: [],
         };
-        const plans: WashOrderPlanCreationData[] | [] = [];
+        const plans: WashOrderPlanCreationData[] = [];
 
         values.washOrderPlanCreationData.map(
           (item: WashOrderPlanCreationData) => {
-            plans.push({
-              scheduleStartTime: item.scheduleStartTime,
+            return plans.push({
+              scheduleStartTime: item?.scheduleStartTime,
               scheduleEndTime: item.scheduleEndTime,
               logisticsAmount: Number(values.logisticsAmount),
               scheduleDate: item.scheduleDate,
