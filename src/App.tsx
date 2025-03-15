@@ -52,7 +52,7 @@ function App() {
     }
   }, [pathname]);
   return (
-    <div className="font-display">
+    <div className="">
       <QueryClientProvider client={queryClient}>
         <Flowbite theme={{ theme: customTheme }}>
           <Toaster position="top-right" richColors />

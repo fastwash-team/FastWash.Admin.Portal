@@ -210,7 +210,11 @@ const AuthenticatedLayout = () => {
               {links?.map((link) => (
                 <p
                   key={link.title}
-                  onClick={() => navigate(link?.route)}
+                  onClick={() => {
+                    if (link?.route === "")
+                      return toast.info("Feature is coming soon!");
+                    return navigate(link?.route);
+                  }}
                   className={`p-2 text-sm font-medium border-b-4 border-transparent cursor-pointer ${link?.isActive ? "text-[#17499F] border-b-4 border-b-[#17499F]" : "text-[#666666]"}`}
                 >
                   {link?.title}
