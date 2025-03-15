@@ -5,7 +5,6 @@ import dayjs from "@/utils/dayjsLib";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { GoChevronRight } from "react-icons/go";
-// import CustomerSupport from "@/components/CustomerSupport";
 import { v4 as uuid } from "uuid";
 import { lazy } from "react";
 
